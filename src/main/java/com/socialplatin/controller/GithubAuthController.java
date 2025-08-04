@@ -23,7 +23,7 @@ public class GithubAuthController {
         }
 
         try {
-            // 1. Trocar code por access token
+
             String tokenUrl = "https://github.com/login/oauth/access_token";
 
             HttpHeaders headers = new HttpHeaders();
@@ -46,7 +46,7 @@ public class GithubAuthController {
 
             String accessToken = (String) tokenBody.get("access_token");
 
-            // 2. Buscar dados do usuário com access token
+
             HttpHeaders userHeaders = new HttpHeaders();
             userHeaders.setBearerAuth(accessToken);
             HttpEntity<Void> userRequest = new HttpEntity<>(userHeaders);
@@ -65,7 +65,6 @@ public class GithubAuthController {
                         .body(Collections.singletonMap("error", "Erro ao obter dados do usuário"));
             }
 
-            // 3. Resposta com dados desejados
             Map<String, Object> response = new HashMap<>();
             response.put("login", userBody.get("login"));
             response.put("name", userBody.get("name"));
